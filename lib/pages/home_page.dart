@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/widgets/aboutSection.dart';
 import 'package:portfolio/widgets/navbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +12,9 @@ class HomePage extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: Navbar(),
+          ),
+          SliverToBoxAdapter(
+            child: AboutSection(), // ✅ About text + profile image
           ),
         ],
       ),

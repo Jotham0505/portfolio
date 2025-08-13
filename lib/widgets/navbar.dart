@@ -8,10 +8,10 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      // ✅ Keeps alignment stable across devices with notches/status bars
+      // Keeps alignment stable across devices with notches/status bars
       child: Container(
         color: AppColors.white,
-        width: double.infinity, // ✅ Ensures full width
+        width: double.infinity, // Ensures full width
         child: Column(
           children: [
             Row(
@@ -66,11 +66,11 @@ class Navbar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment:
-                    CrossAxisAlignment.start, // ✅ Prevents shifting
+                    CrossAxisAlignment.start, //  Prevents shifting
                 children: [
-                  Column(
+                  /*Column(
                     mainAxisSize: MainAxisSize
-                        .min, // ✅ Prevents stretching on tall screens
+                        .min, //  Prevents stretching on tall screens
                     children: [
                       RotatedBox(
                         quarterTurns: 3,
@@ -101,9 +101,9 @@ class Navbar extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 200),
+
                     ],
-                  ),
+                  ),*/
                 ],
               ),
             ),
