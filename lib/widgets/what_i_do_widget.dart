@@ -18,13 +18,13 @@ class WhatIDoSection extends StatelessWidget {
           "Building intelligent systems with Python, TensorFlow Lite, and edge AI."
     },
     {
-      "title": "Backend Engineering",
+      "title": "Backend Development",
       "icon": "assets/images/api.png",
       "description":
           "Fast, secure APIs using FastAPI, Flask, and cloud integration."
     },
     {
-      "title": "Full-Stack Delivery",
+      "title": "Full-Stack",
       "icon": "assets/images/cloud.png",
       "description":
           "From idea to deployment — mobile, backend, AI, and hosting."
@@ -38,20 +38,10 @@ class WhatIDoSection extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 800;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            "WHAT I DO",
-            style: GoogleFonts.playfairDisplay(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                letterSpacing: 2,
-                fontStyle: FontStyle.italic),
-          ),
-          const SizedBox(height: 40),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -133,7 +123,7 @@ class _FlipCardState extends State<_FlipCard>
                     BoxShadow(
                       color: Colors.white.withOpacity(0.25), // soft white glow
                       blurRadius: 25,
-                      offset: const Offset(0, 8),
+                      offset: const Offset(0, 4),
                     ),
                     BoxShadow(
                       color: const Color(0xFFB3E5FC)
