@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/widgets/tech_grid.dart';
+import 'package:portfolio/widgets/what_i_do_widget.dart';
 
 class Aboutsection extends StatelessWidget {
   const Aboutsection({super.key});
@@ -18,6 +20,7 @@ class Aboutsection extends StatelessWidget {
                 _buildIntro(),
                 const SizedBox(height: 40),
                 //_buildStats(),
+                WhatIDoSection(),
               ],
             )
           : Row(
@@ -25,6 +28,7 @@ class Aboutsection extends StatelessWidget {
               children: [
                 Expanded(flex: 2, child: _buildIntro()),
                 //Expanded(flex: 3, child: _buildStats(),),
+                Expanded(flex: 2, child: WhatIDoSection()),
               ],
             ),
     );
