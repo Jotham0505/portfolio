@@ -7,70 +7,47 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < 800;
+    const double designWidth = 1280;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final scale = screenWidth / designWidth;
 
-          return Container(
-            color: AppColors.white,
+    return SafeArea(
+      child: Center(
+        child: SizedBox(
+          width: screenWidth,
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: isMobile
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Top row with logo + hamburger menu
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            'assets/images/logo.png',
-                            height: 70,
-                            fit: BoxFit.contain,
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.menu,
-                                color: AppColors.secondary),
-                            onPressed: () {
-                              // TODO: Implement mobile menu
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      // Nav items stacked vertically
-                      Wrap(
-                        spacing: 20,
-                        runSpacing: 10,
-                        children: [
-                          _item("About Me"),
-                          _item("Portfolio"),
-                          _item("Services"),
-                          _item("Blog"),
-                          _bookCallButton(),
-                        ],
-                      ),
-                    ],
-                  )
-                : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/logo.png',
-                        height: 100,
-                        fit: BoxFit.contain,
-                      ),
-                      const SizedBox(width: 20),
-                      _item("About Me"),
-                      _item("Portfolio"),
-                      _item("Services"),
-                      _item("Blog"),
-                      const Spacer(),
-                      _bookCallButton(),
-                    ],
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: screenWidth < 900 ? 50 : 100, // smaller on mobile
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(width: 20),
+
+                // Hide nav items on mobile
+                if (screenWidth >= 900) ...[
+                  _item("About Me"),
+                  _item("Portfolio"),
+                  _item("Services"),
+                  _item("Blog"),
+                  const Spacer(),
+                  _bookCallButton(),
+                ] else
+                  const Spacer(),
+
+                // Mobile Menu Icon
+                if (screenWidth < 900)
+                  IconButton(
+                    icon: const Icon(Icons.menu, color: AppColors.secondary),
+                    onPressed: () {},
                   ),
-          );
-        },
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -94,9 +71,9 @@ class Navbar extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               "Book a Call",
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Aeonik',
                 decoration: TextDecoration.underline,
                 decorationThickness: 0.5,

@@ -66,7 +66,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // Navbar with slide + fade
           SliverToBoxAdapter(
             child: FadeTransition(
               opacity: _navController,
@@ -76,8 +75,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
           ),
-
-          // About section with slide + fade
           SliverToBoxAdapter(
             child: FadeTransition(
               opacity: _aboutController,
