@@ -52,11 +52,11 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
         children: [
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
               "Take Complete charge of your Projects",
               style: const TextStyle(
-                fontSize: 48,
+                fontSize: 64,
                 color: Colors.white,
                 fontFamily: 'Aeonik',
                 height: 1.2,

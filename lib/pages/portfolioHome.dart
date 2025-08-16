@@ -1,9 +1,13 @@
+// file: lib/pages/portfolioHome.dart
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/theme/typography.dart';
 import 'package:portfolio/widgets/aboutSection.dart';
 import 'package:portfolio/widgets/about_Section.dart';
 import 'package:portfolio/widgets/projects.dart';
+import 'package:portfolio/widgets/resume_section.dart';
 import 'package:portfolio/widgets/tech_grid.dart';
 
 class PortfolioHome extends StatefulWidget {
@@ -18,6 +22,14 @@ class _PortfolioHomeState extends State<PortfolioHome>
   late AnimationController _rotationController;
   late AnimationController _pulseController;
   late AnimationController _staggerController;
+  final ScrollController _scrollController = ScrollController();
+
+  // Section keys
+  final GlobalKey aboutKey = GlobalKey();
+  final GlobalKey skillsKey = GlobalKey();
+  final GlobalKey projectsKey = GlobalKey();
+  final GlobalKey resumeKey = GlobalKey();
+
   String _hoveredNav = "";
 
   @override
@@ -32,11 +44,16 @@ class _PortfolioHomeState extends State<PortfolioHome>
         AnimationController(vsync: this, duration: const Duration(seconds: 3))
           ..repeat(reverse: true);
 
-    // Single stagger controller for fade/slide sequence
     _staggerController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2400),
     )..forward();
+
+    // If you plan to call scroll-to anchors automatically on load,
+    // do that in a post-frame callback to avoid layout-time mutations:
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   // _scrollToSection(aboutKey); // example
+    // });
   }
 
   @override
@@ -44,7 +61,21 @@ class _PortfolioHomeState extends State<PortfolioHome>
     _rotationController.dispose();
     _pulseController.dispose();
     _staggerController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      // ensureVisible is safe to call from user action (tap). If you ever
+      // call it during build/init, schedule it with addPostFrameCallback.
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 700),
+        curve: Curves.easeInOutCubic,
+      );
+    }
   }
 
   @override
@@ -54,10 +85,13 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAF9F6),
-      body: SingleChildScrollView(
-        child: Column(
+      // Use SafeArea and a ListView for the main scrollable area.
+      body: SafeArea(
+        child: ListView(
+          controller: _scrollController,
+          padding: EdgeInsets.zero,
           children: [
-            // ✅ Top Navigation
+            // Top Navigation
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Row(
@@ -66,28 +100,32 @@ class _PortfolioHomeState extends State<PortfolioHome>
                   Row(
                     children: [
                       // Rotating circular logo
-                      Stack(
-                        alignment: Alignment.center,
+                      Column(
                         children: [
-                          RotationTransition(
-                            turns: _rotationController,
-                            child: CustomPaint(
-                              size: const Size(48, 48),
-                              painter: CircularTextPainter(
-                                text: "JOTHAM • EMMANUEL • CHEERAN •",
-                                textStyle: GoogleFonts.playfairDisplay(
-                                  fontSize: 8,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              RotationTransition(
+                                turns: _rotationController,
+                                child: CustomPaint(
+                                  size: const Size(48, 48),
+                                  painter: CircularTextPainter(
+                                    text: "JOTHAM • EMMANUEL • CHEERAN •",
+                                    textStyle: GoogleFonts.playfairDisplay(
+                                      fontSize: 8,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 14,
-                            backgroundImage:
-                                const AssetImage("assets/images/logo.png"),
-                            backgroundColor: Colors.white,
+                              CircleAvatar(
+                                radius: 14,
+                                backgroundImage:
+                                    const AssetImage("assets/images/logo.png"),
+                                backgroundColor: Colors.white,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -96,7 +134,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Jotham Cheeran",
+                          const Text("Jotham Cheeran",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -134,21 +172,19 @@ class _PortfolioHomeState extends State<PortfolioHome>
               ),
             ),
 
-            // ✅ Hero Section
+            // Hero Section
             AnimatedBuilder(
               animation: _staggerController,
               builder: (context, child) {
                 final value = _staggerController.value;
                 return Column(
                   children: [
-                    // Profile Image with pulse glow
                     Transform.scale(
-                      scale: Curves.easeOutBack.transform(
-                          value.clamp(0.0, 0.4) / 0.4), // scale-in first
+                      scale: Curves.easeOutBack
+                          .transform(value.clamp(0.0, 0.4) / 0.4),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          // Glow Ring
                           ScaleTransition(
                             scale: Tween(begin: 0.9, end: 1.1).animate(
                                 CurvedAnimation(
@@ -208,7 +244,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 20),
 
                     // Intro text
@@ -237,46 +272,80 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
             const SizedBox(height: 50),
 
-            // ✅ Scroll-triggered sections
-            const Aboutsection(),
+            // Sections with keys (these are normal widgets, ensure they don't use Expanded internally)
+            KeyedSubtree(key: aboutKey, child: const Aboutsection()),
             const SizedBox(height: 50),
 
-            TechStackShowcase(),
+            KeyedSubtree(key: skillsKey, child: TechStackShowcase()),
             const SizedBox(height: 50),
-            ProjectAccordion(),
+
+            KeyedSubtree(key: projectsKey, child: ProjectAccordion()),
+            const SizedBox(height: 50),
+
+            KeyedSubtree(
+              key: resumeKey,
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: ResumeSection(),
+              ),
+            ),
+
+            const SizedBox(height: 100),
           ],
         ),
       ),
     );
   }
 
-  // ✅ Smooth nav hover
+  // Smooth nav hover + click scroll
   Widget _navItem(String title) {
     final isHovered = _hoveredNav == title;
     return MouseRegion(
       onEnter: (_) => setState(() => _hoveredNav = title),
       onExit: (_) => setState(() => _hoveredNav = ""),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: isHovered ? Colors.black : Colors.transparent,
-              width: 2,
+      child: GestureDetector(
+        onTap: () {
+          switch (title) {
+            case "About me":
+              _scrollToSection(aboutKey);
+              break;
+            case "Skills":
+              _scrollToSection(skillsKey);
+              break;
+            case "Project":
+              _scrollToSection(projectsKey);
+              break;
+            case "Resume":
+              _scrollToSection(resumeKey);
+              break;
+            default:
+              _scrollController.animateTo(0,
+                  duration: const Duration(milliseconds: 700),
+                  curve: Curves.easeInOutCubic);
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeOutCubic,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                  color: isHovered ? Colors.black : Colors.transparent,
+                  width: 2),
             ),
           ),
-        ),
-        child: AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 300),
-          style: GoogleFonts.playfairDisplay(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1,
-            color: isHovered ? Colors.black : Colors.grey[800],
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 300),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1,
+              color: isHovered ? Colors.black : Colors.grey[800],
+              fontFamily: 'Aeonik',
+            ),
+            child: Text(title),
           ),
-          child: Text(title),
         ),
       ),
     );
@@ -300,14 +369,13 @@ class CircularTextPainter extends CustomPainter {
       final angle = i * perCharAngle - math.pi / 2;
 
       final textPainter = TextPainter(
-        text: TextSpan(text: char, style: textStyle),
-        textDirection: TextDirection.ltr,
-      )..layout();
+          text: TextSpan(text: char, style: textStyle),
+          textDirection: TextDirection.ltr)
+        ..layout();
 
       final offset = Offset(
-        size.width / 2 + radius * math.cos(angle) - textPainter.width / 2,
-        size.height / 2 + radius * math.sin(angle) - textPainter.height / 2,
-      );
+          size.width / 2 + radius * math.cos(angle) - textPainter.width / 2,
+          size.height / 2 + radius * math.sin(angle) - textPainter.height / 2);
 
       canvas.save();
       canvas.translate(offset.dx + textPainter.width / 2,

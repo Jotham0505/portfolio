@@ -49,7 +49,7 @@ class WhatIDoSection extends StatelessWidget {
               crossAxisCount: isMobile ? 1 : 2,
               mainAxisSpacing: 25,
               crossAxisSpacing: 25,
-              childAspectRatio: isMobile ? 1.5 : 1.8,
+              childAspectRatio: isMobile ? 1.5 : 1.5,
             ),
             itemCount: services.length,
             itemBuilder: (context, index) {
