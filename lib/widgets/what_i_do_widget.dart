@@ -188,16 +188,15 @@ class _FrontCard extends StatelessWidget {
         children: [
           Image.asset(iconPath, height: 55),
           const SizedBox(height: 18),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-              letterSpacing: 1,
-            ),
-          ),
+          Text(title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                letterSpacing: 1,
+                fontFamily: 'Aeonik',
+              )),
         ],
       ),
     );

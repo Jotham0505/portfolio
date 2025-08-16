@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/widgets/aboutSection.dart';
 import 'package:portfolio/widgets/about_Section.dart';
+import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/tech_grid.dart';
 
 class PortfolioHome extends StatefulWidget {
@@ -220,10 +221,11 @@ class _PortfolioHomeState extends State<PortfolioHome>
                           "I’m an AI & Flutter developer passionate about building "
                           "intelligent, high-performance, and visually stunning applications.",
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.openSans(
+                          style: TextStyle(
                             fontSize: isMobile ? 14 : 16,
                             color: Colors.grey[700],
                             height: 1.6,
+                            fontFamily: 'Aeonik',
                           ),
                         ),
                       ),
@@ -240,6 +242,8 @@ class _PortfolioHomeState extends State<PortfolioHome>
             const SizedBox(height: 50),
 
             TechStackShowcase(),
+            const SizedBox(height: 50),
+            ProjectAccordion(),
           ],
         ),
       ),

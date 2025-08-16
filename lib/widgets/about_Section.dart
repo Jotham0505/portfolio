@@ -11,7 +11,7 @@ class Aboutsection extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 900;
 
     return Container(
-      color: const Color(0xFFFAF9F6), // soft off-white
+      color: Colors.black, // soft off-white
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
       child: Column(
         children: [
@@ -59,19 +59,21 @@ class Aboutsection extends StatelessWidget {
       children: [
         Text("About Me",
             style: TextStyle(
-              fontSize: 64,
-              fontFamily: 'Aeonik',
-            )),
+                fontSize: 64, fontFamily: 'Aeonik', color: Colors.white)),
         const SizedBox(height: 16),
         Text(
-          "I’m Jotham Emmanuel Cheeran — a student developer from Vellore Institute of Technology, "
-          "crafting fast, accessible mobile apps with Flutter and powering them with intelligence through Python and applied ML. "
-          "I design end-to-end experiences — from clean, elegant UI to measurable outcomes — often bridging Flutter with "
-          "FastAPI or Flask backends to deliver full-stack solutions. I thrive in collaborative, team-driven environments "
-          "where creativity meets precision. Recent work includes semantic search powered by embeddings and "
-          "iterative shipping with Git/GitHub workflows. Open to internships where impact, craft, and teamwork truly matter.",
-          style: GoogleFonts.playfairDisplay(fontSize: 16, height: 1.5),
-        ),
+            "I’m Jotham Emmanuel Cheeran — a student developer from Vellore Institute of Technology, "
+            "crafting fast, accessible mobile apps with Flutter and powering them with intelligence through Python and applied ML. "
+            "I design end-to-end experiences — from clean, elegant UI to measurable outcomes — often bridging Flutter with "
+            "FastAPI or Flask backends to deliver full-stack solutions. I thrive in collaborative, team-driven environments "
+            "where creativity meets precision. Recent work includes semantic search powered by embeddings and "
+            "iterative shipping with Git/GitHub workflows. Open to internships where impact, craft, and teamwork truly matter.",
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.5,
+              fontFamily: 'Aeonik',
+              color: Colors.white,
+            )),
         const SizedBox(height: 20),
         InkWell(
           onTap: () {
@@ -82,13 +84,15 @@ class Aboutsection extends StatelessWidget {
             children: [
               Text(
                 "Contact Me",
-                style: GoogleFonts.playfairDisplay(
-                    fontSize: 16,
-                    decoration: TextDecoration.underline,
-                    fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey[800],
+                ),
               ),
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward_rounded, size: 18),
+              Icon(Icons.arrow_forward_rounded,
+                  size: 18, color: Colors.grey[800]),
             ],
           ),
         ),

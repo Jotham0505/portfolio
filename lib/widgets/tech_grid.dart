@@ -26,15 +26,17 @@ class TechStackShowcase extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 600;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Tech Stack",
-                  style: TextStyle(
-                    fontSize: 62,
-                    fontFamily: 'Aeonik',
-                  ))
+          Text(
+            "Tech Stack and Tools",
+            style: TextStyle(
+              fontSize: 62,
+              fontFamily: 'Aeonik',
+            ),
+          )
               .animate()
               .fadeIn(duration: 600.ms, delay: 200.ms)
               .slideY(begin: 0.2, curve: Curves.easeOut),
@@ -43,10 +45,10 @@ class TechStackShowcase extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isMobile ? 3 : 5,
+              crossAxisCount: isMobile ? 3 : 6,
               mainAxisSpacing: 20,
               crossAxisSpacing: 20,
-              childAspectRatio: isMobile ? 0.8 : 1.0,
+              childAspectRatio: isMobile ? 0.8 : 0.85,
             ),
             itemCount: techStack.length,
             itemBuilder: (context, index) {
@@ -104,7 +106,7 @@ class _TechCardState extends State<_TechCard>
           border: Border.all(
             color: _isHovered
                 ? const Color(0xFF8E9BAE).withOpacity(0.8)
-                : Colors.black12,
+                : Colors.white,
             width: 0.6,
           ),
         ),
@@ -125,18 +127,17 @@ class _TechCardState extends State<_TechCard>
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    widget.name,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
+                  Text(widget.name,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                        letterSpacing: 0.8,
+                        fontFamily: 'Aeonik',
+                      )),
                 ],
               ),
             ),

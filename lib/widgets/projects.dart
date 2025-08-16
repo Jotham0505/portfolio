@@ -1,149 +1,139 @@
 import 'package:flutter/material.dart';
 
-class Projects extends StatelessWidget {
-  const Projects({super.key});
+class ProjectAccordion extends StatefulWidget {
+  const ProjectAccordion({super.key});
+
+  @override
+  State<ProjectAccordion> createState() => _ProjectAccordionState();
+}
+
+class _ProjectAccordionState extends State<ProjectAccordion> {
+  int? expandedIndex;
+
+  final projects = [
+    {
+      "title": "ALL-IN-ONE BRANDING",
+      "details": "Details about branding projects here.",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "CREATIVE WEB DESIGN",
+      "details": "Details about web design projects here.",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "MOTION GRAPHICS AND STORYTELLING",
+      "details": "Details about motion graphics projects here.",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "CREATIVE DIRECTION",
+      "details": "Details about creative direction projects here.",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "MEME 3D DESIGN",
+      "details": "Details about meme 3D design projects here.",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "DIGITAL DEVELOPMENT",
+      "details": "Details about digital development projects here.",
+      "image": "assets/images/logo.png"
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final projects = [
-      {
-        "image": "assets/images/profile.png",
-        "title": "MythosMark",
-        "date": "Jan 2023 - Present",
-      },
-      {
-        "image": "assets/images/profile.png",
-        "title": "[ROCKART]",
-        "date": "Jan 2023 - Present",
-      },
-      {
-        "image": "assets/images/profile.png",
-        "title": "EchoMotion",
-        "date": "Jan 2023 - Present",
-      },
-      {
-        "image": "assets/images/profile.png",
-        "title": "Project X",
-        "date": "Jan 2023 - Present",
-      },
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+    return Container(
+      color: Colors.black, // background
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Heading
-          Text(
-            "Drive your project toward excellence with clarity.",
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              height: 1.2,
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Take Complete charge of your Projects",
+              style: const TextStyle(
+                fontSize: 48,
+                color: Colors.white,
+                fontFamily: 'Aeonik',
+                height: 1.2,
+              ),
             ),
           ),
           const SizedBox(height: 40),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: projects.length,
+            itemBuilder: (context, index) {
+              final project = projects[index];
+              final isExpanded = expandedIndex == index;
 
-          // First Row (2 projects)
-          Row(
-            children: [
-              Expanded(
-                child: _buildProjectCard(
-                  image: projects[0]["image"]!,
-                  title: projects[0]["title"]!,
-                  date: projects[0]["date"]!,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: _buildProjectCard(
-                  image: projects[1]["image"]!,
-                  title: projects[1]["title"]!,
-                  date: projects[1]["date"]!,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // Second Row (2 projects)
-          Row(
-            children: [
-              Expanded(
-                child: _buildProjectCard(
-                  image: projects[2]["image"]!,
-                  title: projects[2]["title"]!,
-                  date: projects[2]["date"]!,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: _buildProjectCard(
-                  image: projects[3]["image"]!,
-                  title: projects[3]["title"]!,
-                  date: projects[3]["date"]!,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProjectCard({
-    required String image,
-    required String title,
-    required String date,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.grey[100],
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          )
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Profile Image
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            child: Image.asset(
-              image,
-              fit: BoxFit.cover,
-              height: 180, // fixed height so cards are equal
-              width: double.infinity,
-            ),
-          ),
-          // Title & Date
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
+              return Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      project["title"]!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    trailing: AnimatedRotation(
+                      duration: const Duration(milliseconds: 300),
+                      turns: isExpanded ? 0.25 : 0,
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 18,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        expandedIndex = isExpanded ? null : index;
+                      });
+                    },
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  date,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 13,
+                  AnimatedCrossFade(
+                    duration: const Duration(milliseconds: 300),
+                    crossFadeState: isExpanded
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    firstChild: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            project["details"]!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              project["image"]!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    secondChild: const SizedBox.shrink(),
                   ),
-                ),
-              ],
-            ),
+                  const Divider(color: Colors.white24, thickness: 0.5),
+                ],
+              );
+            },
           ),
         ],
       ),
