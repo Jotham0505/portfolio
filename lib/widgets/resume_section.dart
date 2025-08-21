@@ -15,7 +15,6 @@ class ResumeSection extends StatelessWidget {
         builder: (context, constraints) {
           bool isMobile = constraints.maxWidth < 800;
 
-          // Dynamic font sizes
           double headingFontSize = isMobile ? 28 : 64;
           double subHeadingFontSize = isMobile ? 22 : 48;
           double bodyFontSize = isMobile ? 14 : 16;
@@ -98,7 +97,7 @@ class ResumeSection extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            // TODO: Open resume link
+            //Open resume link
           },
           icon: const Icon(Icons.download, color: Colors.white),
           label: const Text(
@@ -149,7 +148,7 @@ class ResumeSection extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              // 👉 Navigate to achievements
+              //  Navigate to achievements
             },
             icon: const Icon(Icons.arrow_forward, color: Colors.white),
             label: const Text(

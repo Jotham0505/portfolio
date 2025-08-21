@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class TechStackShowcase extends StatelessWidget {
-  final List<Map<String, String>> techStack = [
+  static const List<Map<String, String>> techStack = [
     {"name": "Flutter", "icon": "assets/images/flutter.png"},
     {"name": "FastAPI", "icon": "assets/images/fastapi.png"},
     {"name": "Flask", "icon": "assets/images/flask.png"},
@@ -19,7 +19,7 @@ class TechStackShowcase extends StatelessWidget {
     {"name": "AWS", "icon": "assets/images/aws.png"},
   ];
 
-  TechStackShowcase({super.key});
+  const TechStackShowcase({super.key});
 
   @override
   Widget build(BuildContext context) {

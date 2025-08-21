@@ -55,7 +55,7 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
               "Take Complete charge of your Projects",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 64,
                 color: Colors.white,
                 fontFamily: 'Aeonik',
@@ -64,11 +64,10 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
             ),
           ),
           const SizedBox(height: 40),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: projects.length,
-            itemBuilder: (context, index) {
+
+          // ✅ FIX: Use Column instead of ListView
+          Column(
+            children: List.generate(projects.length, (index) {
               final project = projects[index];
               final isExpanded = expandedIndex == index;
 
@@ -133,7 +132,7 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
                   const Divider(color: Colors.white24, thickness: 0.5),
                 ],
               );
-            },
+            }),
           ),
         ],
       ),
