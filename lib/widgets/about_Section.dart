@@ -39,7 +39,6 @@ class Aboutsection extends StatelessWidget {
             ],
           );
         } else {
-          // Give explicit widths instead of Expanded so layout is bounded inside scroll view
           final double leftWidth = constraints.maxWidth * 0.48;
           final double rightWidth = constraints.maxWidth * 0.48;
           final double spacer = constraints.maxWidth * 0.04;

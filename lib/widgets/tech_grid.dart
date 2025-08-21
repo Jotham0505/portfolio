@@ -106,7 +106,7 @@ class _TechCardState extends State<_TechCard>
           border: Border.all(
             color: _isHovered
                 ? const Color(0xFF8E9BAE).withOpacity(0.8)
-                : Colors.white,
+                : Colors.black12,
             width: 0.6,
           ),
         ),

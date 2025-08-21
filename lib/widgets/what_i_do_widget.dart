@@ -218,7 +218,7 @@ class _BackCard extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.playfairDisplay(
             fontSize: 14,
-            color: Colors.black,
+            color: Colors.white,
             height: 1.5,
           ),
         ),

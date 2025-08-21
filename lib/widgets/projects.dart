@@ -64,8 +64,6 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
             ),
           ),
           const SizedBox(height: 40),
-
-          // ✅ FIX: Use Column instead of ListView
           Column(
             children: List.generate(projects.length, (index) {
               final project = projects[index];
