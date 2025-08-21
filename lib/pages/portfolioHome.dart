@@ -24,7 +24,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
   late AnimationController _staggerController;
   final ScrollController _scrollController = ScrollController();
 
-  // Section keys
   final GlobalKey aboutKey = GlobalKey();
   final GlobalKey skillsKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
@@ -48,12 +47,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
       vsync: this,
       duration: const Duration(milliseconds: 2400),
     )..forward();
-
-    // If you plan to call scroll-to anchors automatically on load,
-    // do that in a post-frame callback to avoid layout-time mutations:
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   // _scrollToSection(aboutKey); // example
-    // });
   }
 
   @override
@@ -68,8 +61,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
   void _scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
-      // ensureVisible is safe to call from user action (tap). If you ever
-      // call it during build/init, schedule it with addPostFrameCallback.
       Scrollable.ensureVisible(
         context,
         duration: const Duration(milliseconds: 700),
@@ -172,7 +163,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
               ),
             ),
 
-            // Hero Section
             AnimatedBuilder(
               animation: _staggerController,
               builder: (context, child) {
@@ -216,7 +206,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
                     ),
                     const SizedBox(height: 30),
 
-                    // Headline
                     Opacity(
                       opacity: Curves.easeIn
                           .transform(((value - 0.3).clamp(0.0, 0.3)) / 0.3),
@@ -272,7 +261,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
             const SizedBox(height: 50),
 
-            // Sections with keys (these are normal widgets, ensure they don't use Expanded internally)
             KeyedSubtree(key: aboutKey, child: const Aboutsection()),
             const SizedBox(height: 50),
 
@@ -297,7 +285,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
     );
   }
 
-  // Smooth nav hover + click scroll
   Widget _navItem(String title) {
     final isHovered = _hoveredNav == title;
     return MouseRegion(
