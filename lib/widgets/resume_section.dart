@@ -97,7 +97,7 @@ class _ResumeSectionState extends State<ResumeSection> {
   Widget _buildLeftColumn(
       double headingFontSize, double bodyFontSize, BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start, // init command
       children: [
         Text(
           "Let’s Work Together.",
