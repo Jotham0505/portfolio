@@ -72,7 +72,7 @@ class _ResumeSectionState extends State<ResumeSection> {
                       child: _buildLeftColumn(
                           headingFontSize, bodyFontSize, context),
                     ),
-                    const SizedBox(width: 40),
+                    const SizedBox(width: 40), // make changes to the spacing
                     Expanded(
                       child: _buildRightColumn(slides),
                     ),
