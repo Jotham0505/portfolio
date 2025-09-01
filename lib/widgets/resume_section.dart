@@ -153,7 +153,7 @@ class _ResumeSectionState extends State<ResumeSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          // Set a fixed height for the PageView to avoid layout errors
+          // setting a fixed height for the PageView to avoid layout errors
           height: 275,
           child: PageView(
             controller: _pageController,
