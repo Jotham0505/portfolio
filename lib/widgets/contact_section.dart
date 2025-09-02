@@ -16,7 +16,9 @@ class _ContactSectionState extends State<ContactSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 48.0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,7 +38,7 @@ class _ContactSectionState extends State<ContactSection> {
                 height: 1,
                 color: Colors.black,
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 40),
               Row(
                 children: [
                   Text(
@@ -48,10 +50,18 @@ class _ContactSectionState extends State<ContactSection> {
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                  IconButton(
+                  SizedBox(width: 8),
+                  Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black, // background color
+                    ),
+                    child: IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.arrow_forward_rounded,
-                          color: Colors.black))
+                          color: Colors.white),
+                    ),
+                  )
                 ],
               ),
             ],
@@ -65,31 +75,63 @@ class _ContactSectionState extends State<ContactSection> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                onPressed: () {
-                  debugPrint("Contact button pressed");
-                },
-                icon: const Icon(Icons.arrow_forward, color: Colors.black),
-                label: const Text(
-                  "GET IN TOUCH",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Aeonik',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
               const SizedBox(height: 50),
 
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "(+91) 9663466229",
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontFamily: 'Aeonik',
+                          ),
+                        ),
+                        Text(
+                          "jothamemmanuelcheeran@gmail.com",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Aeonik',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.copyright,
+                                size: 16, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Text(
+                              "2025 Jotham's Portfolio",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                                fontFamily: 'Aeonik',
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+
+              Divider(
+                color: Colors.grey[800],
+                thickness: 1,
+              ),
+
+              Row(
+                children: [],
+              ),
               // Footer
               Column(
                 children: [

@@ -290,12 +290,15 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
               const SizedBox(height: 50),
 
+              Divider(
+                thickness: 0.3,
+                color: Colors.grey[300],
+              ),
+
               Container(
                 key: contactKey,
                 child: const ContactSection(),
               ),
-
-              const SizedBox(height: 50),
             ],
           ),
         ),
