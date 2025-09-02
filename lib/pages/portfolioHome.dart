@@ -6,6 +6,7 @@ import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:portfolio/widgets/aboutSection.dart';
 import 'package:portfolio/widgets/about_Section.dart';
+import 'package:portfolio/widgets/contact_section.dart';
 import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/resume_section.dart';
 import 'package:portfolio/widgets/tech_grid.dart';
@@ -28,6 +29,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
   final GlobalKey skillsKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
   final GlobalKey resumeKey = GlobalKey();
+  final GlobalKey contactKey = GlobalKey();
 
   String _hoveredNav = "";
 
@@ -266,15 +268,15 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
               const SizedBox(height: 50),
 
-              // ✅ About Section
+              // About Section
               Container(key: aboutKey, child: const Aboutsection()),
               const SizedBox(height: 50),
 
-              // ✅ Skills Section
+              // Skills Section
               Container(key: skillsKey, child: const TechStackShowcase()),
               const SizedBox(height: 50),
 
-              // ✅ Projects Section
+              // Projects Section
               Container(key: projectsKey, child: const ProjectAccordion()),
               const SizedBox(height: 50),
 
@@ -286,7 +288,14 @@ class _PortfolioHomeState extends State<PortfolioHome>
                 ),
               ),
 
-              const SizedBox(height: 100),
+              const SizedBox(height: 50),
+
+              Container(
+                key: contactKey,
+                child: const ContactSection(),
+              ),
+
+              const SizedBox(height: 50),
             ],
           ),
         ),
