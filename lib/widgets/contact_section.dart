@@ -76,7 +76,6 @@ class _ContactSectionState extends State<ContactSection> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-
               Row(
                 children: [
                   Padding(
@@ -85,8 +84,9 @@ class _ContactSectionState extends State<ContactSection> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "(+91) 9663466229",
+                          "+91 9663466229",
                           style: TextStyle(
+                            fontSize: 12,
                             color: Colors.grey[600],
                             fontFamily: 'Aeonik',
                           ),
@@ -94,7 +94,7 @@ class _ContactSectionState extends State<ContactSection> {
                         Text(
                           "jothamemmanuelcheeran@gmail.com",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.white,
                             fontFamily: 'Aeonik',
                           ),
@@ -120,48 +120,161 @@ class _ContactSectionState extends State<ContactSection> {
                         )
                       ],
                     ),
+                  ),
+                  const SizedBox(width: 160),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "LinkedIn",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 48,
+                              color: Colors.white,
+                              fontFamily: 'Aeonik',
+                              decorationColor: Colors.white,
+                            ),
+                          ),
+                          Icon(Icons.north_east, size: 32, color: Colors.white)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Instagram",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 48,
+                              color: Colors.white,
+                              fontFamily: 'Aeonik',
+                              decorationColor: Colors.white,
+                            ),
+                          ),
+                          Icon(Icons.north_east, size: 32, color: Colors.white)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Github",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 48,
+                              color: Colors.white,
+                              fontFamily: 'Aeonik',
+                              decorationColor: Colors.white,
+                            ),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white, // background color
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.north_east,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                  const SizedBox(width: 320),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Location",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                              fontFamily: 'Aeonik',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Banagalore, India",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[400],
+                              fontFamily: 'Aeonik',
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Interests",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                              fontFamily: 'Aeonik',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "AI · App Dev · API",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[400],
+                              fontFamily: 'Aeonik',
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   )
                 ],
               ),
-
               Divider(
                 color: Colors.grey[800],
                 thickness: 1,
               ),
-
               Row(
-                children: [],
-              ),
-              // Footer
-              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "hello@Noiré.com",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                      fontFamily: 'Aeonik',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Wrap(
-                    spacing: 20,
-                    alignment: WrapAlignment.center,
-                    children: const [
-                      _SocialLink(label: "Twitter"),
-                      _SocialLink(label: "Instagram"),
-                      _SocialLink(label: "Dribbble"),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    "© 2025 Noiré Portfolio",
+                    "Built with Flutter · Bangalore, India",
                     style: TextStyle(
+                      color: Colors.grey[800],
                       fontSize: 12,
-                      color: Colors.grey[400],
                       fontFamily: 'Aeonik',
                     ),
+                  ),
+                  Text(
+                    "Always learning, always building",
+                    style: TextStyle(
+                      color: Colors.grey[800],
+                      fontSize: 12,
+                      fontFamily: 'Aeonik',
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image(
+                    image: AssetImage('assets/images/footer1.png'),
+                    height: 400, // adjust as needed
+                  ),
+                  Image(
+                    image: AssetImage('assets/images/footer2.png'),
+                    height: 600, // adjust as needed
                   ),
                 ],
               )
@@ -169,29 +282,6 @@ class _ContactSectionState extends State<ContactSection> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _SocialLink extends StatelessWidget {
-  final String label;
-  const _SocialLink({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        debugPrint("$label tapped");
-      },
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 14,
-          fontFamily: 'Aeonik',
-          color: Colors.white,
-          decoration: TextDecoration.underline,
-        ),
-      ),
     );
   }
 }
