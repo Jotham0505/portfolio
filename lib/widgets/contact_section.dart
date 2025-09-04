@@ -265,19 +265,6 @@ class _ContactSectionState extends State<ContactSection> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image(
-                    image: AssetImage('assets/images/footer1.png'),
-                    height: 400, // adjust as needed
-                  ),
-                  Image(
-                    image: AssetImage('assets/images/footer2.png'),
-                    height: 600, // adjust as needed
-                  ),
-                ],
-              )
             ],
           ),
         ),
