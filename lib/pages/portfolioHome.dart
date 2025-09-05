@@ -9,6 +9,7 @@ import 'package:portfolio/widgets/about_Section.dart';
 import 'package:portfolio/widgets/contact_section.dart';
 import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/resume_section.dart';
+import 'package:portfolio/widgets/staggered_text.dart';
 import 'package:portfolio/widgets/tech_grid.dart';
 
 class PortfolioHome extends StatefulWidget {
@@ -23,6 +24,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
   late AnimationController _rotationController;
   late AnimationController _pulseController;
   late AnimationController _staggerController;
+  late AnimationController _arrowController;
   final ScrollController _scrollController = ScrollController();
 
   final GlobalKey aboutKey = GlobalKey();
@@ -49,6 +51,11 @@ class _PortfolioHomeState extends State<PortfolioHome>
       vsync: this,
       duration: const Duration(milliseconds: 2400),
     )..forward();
+
+    _arrowController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
   }
 
   @override
@@ -56,6 +63,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
     _rotationController.dispose();
     _pulseController.dispose();
     _staggerController.dispose();
+    _arrowController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -127,7 +135,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                                   ),
                                 ),
                                 CircleAvatar(
-                                  radius: 14,
+                                  radius: 16,
                                   backgroundImage: const AssetImage(
                                       "assets/images/logo.png"),
                                   backgroundColor: Colors.white,
@@ -237,7 +245,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                               ),
                             ),
                             const SizedBox(height: 4),
-                            Text(
+                            /*Text(
                               "AI • Flutter • Creativity",
                               style: TextStyle(
                                 fontSize: isMobile ? 16 : 28,
@@ -245,7 +253,8 @@ class _PortfolioHomeState extends State<PortfolioHome>
                                 letterSpacing: 1.2,
                                 fontFamily: 'Aeonik',
                               ),
-                            ),
+                            ),*/
+                            AnimatedSubtitle()
                           ],
                         ),
                       ),
@@ -258,8 +267,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                         child: SizedBox(
                           width: isMobile ? screenWidth * 0.85 : 650,
                           child: Text(
-                            "I’m an AI & Flutter developer passionate about building "
-                            "intelligent, high-performance, and visually stunning applications.",
+                            "As an AI and Flutter developer, I specialize in building smart, scalable, and beautifully designed applications that blend innovation with performance",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: isMobile ? 14 : 16,
@@ -267,6 +275,33 @@ class _PortfolioHomeState extends State<PortfolioHome>
                               height: 1.6,
                               fontFamily: 'Aeonik',
                             ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 25),
+                      // Down Arrow
+                      FadeTransition(
+                        opacity: Tween(begin: 0.4, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: _arrowController,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, 0.2),
+                            end: Offset.zero,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: _arrowController,
+                              curve: Curves.easeInOut,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            size: 40,
+                            color: Colors.black54,
                           ),
                         ),
                       ),
@@ -287,18 +322,15 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
               // Projects Section
               Container(key: projectsKey, child: const ProjectAccordion()),
-              //const SizedBox(height: 50),
 
               // Resume Section
               Container(
                 key: resumeKey,
                 child: const Padding(
                   padding: EdgeInsets.all(40.0),
-                  child: const ResumeSection(),
+                  child: ResumeSection(),
                 ),
               ),
-
-              //const SizedBox(height: 50),
 
               Divider(
                 thickness: 0.3,
