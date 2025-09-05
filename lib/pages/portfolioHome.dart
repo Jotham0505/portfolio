@@ -63,13 +63,23 @@ class _PortfolioHomeState extends State<PortfolioHome>
   void _scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Scrollable.ensureVisible(
-          context,
-          duration: const Duration(milliseconds: 700),
-          curve: Curves.easeInOutCubic,
-        );
-      });
+      final RenderBox box = context.findRenderObject() as RenderBox;
+      final RenderBox scrollBox =
+          _scrollController.position.context.storageContext.findRenderObject()
+              as RenderBox;
+
+      final targetOffset = box
+          .localToGlobal(
+            Offset.zero,
+            ancestor: scrollBox,
+          )
+          .dy;
+
+      _scrollController.animateTo(
+        _scrollController.offset + targetOffset - 80,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOutQuart,
+      );
     }
   }
 
@@ -80,7 +90,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAF9F6),
-      // Use SafeArea and a ListView for the main scrollable area.
       body: SafeArea(
         child: SingleChildScrollView(
           controller: _scrollController,
@@ -278,8 +287,9 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
               // Projects Section
               Container(key: projectsKey, child: const ProjectAccordion()),
-              const SizedBox(height: 50),
+              //const SizedBox(height: 50),
 
+              // Resume Section
               Container(
                 key: resumeKey,
                 child: const Padding(
@@ -288,13 +298,14 @@ class _PortfolioHomeState extends State<PortfolioHome>
                 ),
               ),
 
-              const SizedBox(height: 50),
+              //const SizedBox(height: 50),
 
               Divider(
                 thickness: 0.3,
                 color: Colors.grey[300],
               ),
 
+              // Contact Section
               Container(
                 key: contactKey,
                 child: const ContactSection(),

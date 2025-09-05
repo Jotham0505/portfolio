@@ -7,7 +7,7 @@ class WhatIDoSection extends StatelessWidget {
   final List<Map<String, String>> services = [
     {
       "title": "Mobile App Development",
-      "icon": "assets/images/flutter.png",
+      "icon": "assets/images/card1.png",
       "description":
           "Crafting smooth, cross-platform apps with Flutter and pixel-perfect UI/UX."
     },
@@ -47,9 +47,9 @@ class WhatIDoSection extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: isMobile ? 1 : 2,
-              mainAxisSpacing: 25,
-              crossAxisSpacing: 25,
-              childAspectRatio: isMobile ? 1.5 : 1.5,
+              mainAxisSpacing: 30,
+              crossAxisSpacing: 30,
+              childAspectRatio: isMobile ? 1.3 : 1.3, // better spacing
             ),
             itemCount: services.length,
             itemBuilder: (context, index) {
@@ -90,14 +90,24 @@ class _FlipCardState extends State<_FlipCard>
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) {
+      onEnter: (_) {
         setState(() {
-          _isHovered = false;
-          _isFlipped = false;
+          _isHovered = true;
+          _isFlipped = true; // flip on hover
+        });
+      },
+      onExit: (_) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (mounted) {
+            setState(() {
+              _isHovered = false;
+              _isFlipped = false; // flip back gently
+            });
+          }
         });
       },
       child: GestureDetector(
+        // mobile tap
         onTap: () => setState(() => _isFlipped = !_isFlipped),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -107,27 +117,33 @@ class _FlipCardState extends State<_FlipCard>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.10),
-                Colors.white.withOpacity(0.04),
-              ],
+              colors: _isHovered
+                  ? [
+                      Colors.black.withOpacity(0.9),
+                      Colors.black.withOpacity(0.7),
+                    ]
+                  : [
+                      Colors.white.withOpacity(0.10),
+                      Colors.white.withOpacity(0.04),
+                    ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             border: Border.all(
-              color: Colors.white.withOpacity(0.15),
-              width: 1.2,
+              color: _isHovered
+                  ? Colors.blueAccent.withOpacity(0.8) // glowing effect
+                  : Colors.white.withOpacity(0.15),
+              width: 1.5,
             ),
             boxShadow: _isHovered
                 ? [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.25), // soft white glow
+                      color: Colors.blueAccent.withOpacity(0.4),
                       blurRadius: 25,
-                      offset: const Offset(0, 4),
+                      offset: const Offset(0, 6),
                     ),
                     BoxShadow(
-                      color: const Color(0xFFB3E5FC)
-                          .withOpacity(0.15), // soft pastel cyan tint
+                      color: Colors.black.withOpacity(0.3),
                       blurRadius: 35,
                       offset: const Offset(0, 12),
                     ),
@@ -136,7 +152,7 @@ class _FlipCardState extends State<_FlipCard>
             backgroundBlendMode: BlendMode.overlay,
           ),
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 500),
             transitionBuilder: (child, anim) {
               final rotate = Tween(begin: pi, end: 0.0).animate(anim);
               return AnimatedBuilder(
@@ -149,8 +165,8 @@ class _FlipCardState extends State<_FlipCard>
                       isUnder ? min(rotate.value, pi / 2) : rotate.value;
                   return Transform(
                     transform: (Matrix4.rotationY(value)..setEntry(3, 0, tilt)),
-                    child: childWidget,
                     alignment: Alignment.center,
+                    child: childWidget,
                   );
                 },
                 child: child,
@@ -159,12 +175,12 @@ class _FlipCardState extends State<_FlipCard>
             child: _isFlipped
                 ? _BackCard(
                     description: widget.description,
-                    key: ValueKey(true),
+                    key: const ValueKey(true),
                   )
                 : _FrontCard(
                     title: widget.title,
                     iconPath: widget.iconPath,
-                    key: ValueKey(false),
+                    key: const ValueKey(false),
                   ),
           ),
         ),
@@ -184,19 +200,40 @@ class _FrontCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(22),
       child: Column(
+        mainAxisSize: MainAxisSize.min, // avoids overflow
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(iconPath, height: 55),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Colors.blueAccent, Colors.purpleAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.blueAccent.withOpacity(0.4),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                )
+              ],
+            ),
+            child: Image.asset(iconPath, height: 35),
+          ),
           const SizedBox(height: 18),
-          Text(title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                letterSpacing: 1,
-                fontFamily: 'Aeonik',
-              )),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              letterSpacing: 1,
+              fontFamily: 'Aeonik',
+            ),
+          ),
         ],
       ),
     );
