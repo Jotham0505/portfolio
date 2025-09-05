@@ -150,86 +150,98 @@ class _ResumeSectionState extends State<ResumeSection> {
 
   Widget _buildRightColumn(List<Widget> slides) {
     return Card(
-      color: Colors.white,
-      elevation: 4, // controls shadow depth
+      elevation: 6, // shadow depth
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      shadowColor: Colors.black,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 275,
-              child: PageView(
-                controller: _pageController,
-                children: slides,
+      shadowColor: Colors.black.withOpacity(0.3),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/cardbg.png"),
+            fit: BoxFit.cover,
+            opacity: 0.15,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 275,
+                child: PageView(
+                  controller: _pageController,
+                  children: slides,
+                ),
               ),
-            ),
-            Divider(color: Colors.black12, thickness: 0.5),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Previous Button
-                Opacity(
-                  opacity: _currentPage == 0 ? 0.5 : 1.0,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 24),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+              Divider(color: Colors.black12, thickness: 0.5),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Previous Button
+                  Opacity(
+                    opacity: _currentPage == 0 ? 0.5 : 1.0,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 24),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 3, // button shadow
+                      ),
+                      onPressed: _currentPage == 0
+                          ? null
+                          : () {
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      label: const Text(
+                        "Previous",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
-                    onPressed: _currentPage == 0
-                        ? null
-                        : () {
-                            _pageController.previousPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    label: const Text(
-                      "Previous",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
                   ),
-                ),
-                // Next Button
-                Opacity(
-                  opacity: _currentPage == slides.length - 1 ? 0.5 : 1.0,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 24),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  // Next Button
+                  Opacity(
+                    opacity: _currentPage == slides.length - 1 ? 0.5 : 1.0,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 24),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 3,
                       ),
+                      onPressed: _currentPage == slides.length - 1
+                          ? null
+                          : () {
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                      label: const Text(
+                        "Next",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      icon:
+                          const Icon(Icons.arrow_forward, color: Colors.white),
                     ),
-                    onPressed: _currentPage == slides.length - 1
-                        ? null
-                        : () {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                    label: const Text(
-                      "Next",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    icon: const Icon(Icons.arrow_forward, color: Colors.white),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

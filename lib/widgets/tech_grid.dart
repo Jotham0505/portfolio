@@ -25,44 +25,52 @@ class TechStackShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Tech Stack and Tools",
-            style: TextStyle(
-              fontSize: 62,
-              fontFamily: 'Aeonik',
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/bg.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Tech Stack and Tools",
+              style: TextStyle(
+                fontSize: 62,
+                fontFamily: 'Aeonik',
+              ),
+            )
+                .animate()
+                .fadeIn(duration: 600.ms, delay: 200.ms)
+                .slideY(begin: 0.2, curve: Curves.easeOut),
+            const SizedBox(height: 10),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: isMobile ? 3 : 6,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                childAspectRatio: isMobile ? 0.8 : 0.85,
+              ),
+              itemCount: techStack.length,
+              itemBuilder: (context, index) {
+                final tech = techStack[index];
+                return _TechCard(
+                  name: tech["name"]!,
+                  iconPath: tech["icon"]!,
+                )
+                    .animate()
+                    .fadeIn(duration: 500.ms, delay: (100 * index).ms)
+                    .slideY(begin: 0.3, curve: Curves.easeOut);
+              },
             ),
-          )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 200.ms)
-              .slideY(begin: 0.2, curve: Curves.easeOut),
-          const SizedBox(height: 10),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isMobile ? 3 : 6,
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              childAspectRatio: isMobile ? 0.8 : 0.85,
-            ),
-            itemCount: techStack.length,
-            itemBuilder: (context, index) {
-              final tech = techStack[index];
-              return _TechCard(
-                name: tech["name"]!,
-                iconPath: tech["icon"]!,
-              )
-                  .animate()
-                  .fadeIn(duration: 500.ms, delay: (100 * index).ms)
-                  .slideY(begin: 0.3, curve: Curves.easeOut);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
