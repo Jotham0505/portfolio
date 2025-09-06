@@ -10,19 +10,29 @@ class ProjectAccordion extends StatefulWidget {
 class _ProjectAccordionState extends State<ProjectAccordion> {
   int? expandedIndex;
 
+  // Create one ScrollController per project
+  late List<ScrollController> _controllers;
+
   final projects = [
     {
-      "title": " Tea Factory Outlet Inventory App",
+      "title": "Tea Factory Outlet Inventory App",
       "details": "Details about branding projects here.",
-      "image": "assets/images/logo.png"
+      "images": [
+        "assets/images/logo.png",
+        "assets/images/logo.png",
+        "assets/images/logo.png",
+      ]
     },
     {
-      "title": "Perplex- Flutter RAG App with FastAPI & Google Gemini",
+      "title": "Perplex - Flutter RAG App with FastAPI & Google Gemini",
       "details": "Details about web design projects here.",
-      "image": "assets/images/logo.png"
+      "images": [
+        "assets/images/logo.png",
+        "assets/images/logo.png",
+      ]
     },
     {
-      "title": "Insigno- Inclusive Learning App",
+      "title": "Insigno - Inclusive Learning App",
       "details":
           """Developed a learning application for Gujarati, Mathematics, and Science with integrated Indian Sign Language interpretation for accessibility.
 
@@ -33,24 +43,69 @@ Designed interactive exercises, quizzes, and progress tracking dashboards for st
 Created and structured 10+ curriculum-aligned learning modules with visual aids and sign-based explanations.
 
 Focused on inclusive education by combining AI-driven sign language translation with engaging e-learning methods.""",
-      "image": "assets/images/logo.png"
+      "images": [
+        "assets/images/logo.png",
+        "assets/images/logo.png",
+        "assets/images/logo.png",
+      ]
     },
     {
       "title": "FinBase",
-      "details": "Details about creative direction projects here.",
-      "image": "assets/images/logo.png"
-    },
-    {
-      "title": "MEME 3D DESIGN",
-      "details": "Details about meme 3D design projects here.",
-      "image": "assets/images/logo.png"
-    },
-    {
-      "title": "DIGITAL DEVELOPMENT",
-      "details": "Details about digital development projects here.",
-      "image": "assets/images/logo.png"
+      "details":
+          """• Dark mode UI with purple and teal highlights for a sleek, modern fintech feel.
+
+• Consistent navigation with a custom bottom navigation bar across all screens.
+
+• Use of rounded cards, shadows, and colorful icons to create a friendly yet professional design.
+
+• Gamified elements (points, leagues, badges) to keep users motivated and engaged.
+
+• Data visualization through custom line and bar charts for an intuitive understanding of financial habits.""",
+      "images": [
+        "assets/images/finbase5.png",
+        "assets/images/finbase6.png",
+        "assets/images/finbase7.png",
+        "assets/images/finbase8.png",
+        "assets/images/finbase1.png",
+        "assets/images/finbase2.png",
+        "assets/images/finbase3.png",
+        "assets/images/finbase4.png",
+      ]
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    // initialize a ScrollController for each project
+    _controllers = List.generate(projects.length, (_) => ScrollController());
+  }
+
+  void _scrollLeft(int index) {
+    final controller = _controllers[index];
+    controller.animateTo(
+      controller.offset - 300,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _scrollRight(int index) {
+    final controller = _controllers[index];
+    controller.animateTo(
+      controller.offset + 300,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +120,9 @@ Focused on inclusive education by combining AI-driven sign language translation 
             child: Text(
               "Take Complete charge of your Projects",
               style: TextStyle(
-                fontSize: 64,
+                fontSize: 62,
                 color: Colors.white,
                 fontFamily: 'Aeonik',
-                height: 1.2,
               ),
             ),
           ),
@@ -82,11 +136,11 @@ Focused on inclusive education by combining AI-driven sign language translation 
                 children: [
                   ListTile(
                     title: Text(
-                      project["title"]!,
+                      project["title"] as String,
                       style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 28,
                         color: Colors.white,
+                        fontFamily: 'Aeonik',
                       ),
                     ),
                     trailing: AnimatedRotation(
@@ -104,37 +158,98 @@ Focused on inclusive education by combining AI-driven sign language translation 
                       });
                     },
                   ),
-                  AnimatedCrossFade(
+                  AnimatedSize(
                     duration: const Duration(milliseconds: 300),
-                    crossFadeState: isExpanded
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    firstChild: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            project["details"]!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white70,
+                    curve: Curves.easeInOut,
+                    child: isExpanded
+                        ? Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  project["details"] as String,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Stack(
+                                  children: [
+                                    SizedBox(
+                                      height: 500,
+                                      child: ListView.separated(
+                                        controller: _controllers[index],
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            (project["images"] as List<String>)
+                                                .length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(width: 16),
+                                        itemBuilder: (context, imgIndex) {
+                                          final img = (project["images"]
+                                              as List<String>)[imgIndex];
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.4),
+                                                  blurRadius: 12,
+                                                  offset: const Offset(0, 6),
+                                                ),
+                                              ],
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: Image.asset(
+                                                img,
+                                                width: 260,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // Left Floating Button
+                                    Positioned(
+                                      left: 0,
+                                      top: 200,
+                                      child: FloatingActionButton(
+                                        mini: true,
+                                        backgroundColor:
+                                            Colors.white.withOpacity(0.7),
+                                        onPressed: () => _scrollLeft(index),
+                                        child: const Icon(Icons.chevron_left,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                    // Right Floating Button
+                                    Positioned(
+                                      right: 0,
+                                      top: 200,
+                                      child: FloatingActionButton(
+                                        mini: true,
+                                        backgroundColor:
+                                            Colors.white.withOpacity(0.7),
+                                        onPressed: () => _scrollRight(index),
+                                        child: const Icon(Icons.chevron_right,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: 12),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              project["image"]!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    secondChild: const SizedBox.shrink(),
+                          )
+                        : const SizedBox.shrink(),
                   ),
                   const Divider(color: Colors.white24, thickness: 0.5),
                 ],
