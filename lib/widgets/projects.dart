@@ -12,22 +12,31 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
 
   final projects = [
     {
-      "title": "ALL-IN-ONE BRANDING",
+      "title": " Tea Factory Outlet Inventory App",
       "details": "Details about branding projects here.",
       "image": "assets/images/logo.png"
     },
     {
-      "title": "CREATIVE WEB DESIGN",
+      "title": "Perplex- Flutter RAG App with FastAPI & Google Gemini",
       "details": "Details about web design projects here.",
       "image": "assets/images/logo.png"
     },
     {
-      "title": "MOTION GRAPHICS AND STORYTELLING",
-      "details": "Details about motion graphics projects here.",
+      "title": "Insigno- Inclusive Learning App",
+      "details":
+          """Developed a learning application for Gujarati, Mathematics, and Science with integrated Indian Sign Language interpretation for accessibility.
+
+Implemented text-to-sign, speech-to-sign, and sign-to-text/speech conversion tools, enabling seamless communication.
+
+Designed interactive exercises, quizzes, and progress tracking dashboards for students, teachers, and parents.
+
+Created and structured 10+ curriculum-aligned learning modules with visual aids and sign-based explanations.
+
+Focused on inclusive education by combining AI-driven sign language translation with engaging e-learning methods.""",
       "image": "assets/images/logo.png"
     },
     {
-      "title": "CREATIVE DIRECTION",
+      "title": "FinBase",
       "details": "Details about creative direction projects here.",
       "image": "assets/images/logo.png"
     },
