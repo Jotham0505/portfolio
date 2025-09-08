@@ -34,19 +34,22 @@ class _ProjectAccordionState extends State<ProjectAccordion> {
     {
       "title": "Insigno - Inclusive Learning App",
       "details":
-          """Developed a learning application for Gujarati, Mathematics, and Science with integrated Indian Sign Language interpretation for accessibility.
+          """• Developed a learning application for Gujarati, Mathematics, and Science with integrated Indian Sign Language interpretation for accessibility.
 
-Implemented text-to-sign, speech-to-sign, and sign-to-text/speech conversion tools, enabling seamless communication.
+• Implemented text-to-sign, speech-to-sign, and sign-to-text/speech conversion tools, enabling seamless communication.
 
-Designed interactive exercises, quizzes, and progress tracking dashboards for students, teachers, and parents.
+• Designed interactive exercises, quizzes, and progress tracking dashboards for students, teachers, and parents.
 
 Created and structured 10+ curriculum-aligned learning modules with visual aids and sign-based explanations.
 
 Focused on inclusive education by combining AI-driven sign language translation with engaging e-learning methods.""",
       "images": [
-        "assets/images/logo.png",
-        "assets/images/logo.png",
-        "assets/images/logo.png",
+        "assets/images/insigno1.png",
+        "assets/images/insigno2.png",
+        "assets/images/insigno3.png",
+        "assets/images/insigno4.png",
+        "assets/images/insigno5.png",
+        "assets/images/insigno6.png",
       ]
     },
     {
